@@ -18,7 +18,10 @@
       "Bash(git push:*)",
       "Bash(rm:*)",
       "Bash(git add:*)",
-      "Bash(open http://127.0.0.1:8003/login)"
+      "Bash(open http://127.0.0.1:8003/login)",
+      "Bash(git init:*)",
+      "Bash(open:*)",
+      "Bash(python3:*)"
     ],
     "deny": [],
     "ask": []

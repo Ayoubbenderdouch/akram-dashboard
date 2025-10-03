@@ -25,6 +25,23 @@ class Product extends Model
         ];
     }
 
+    protected $appends = ['full_image_url'];
+
+    public function getFullImageUrlAttribute()
+    {
+        if (!$this->image_url) {
+            return null;
+        }
+
+        // If already absolute URL, return as is
+        if (str_starts_with($this->image_url, 'http')) {
+            return $this->image_url;
+        }
+
+        // Return absolute URL
+        return config('app.url') . $this->image_url;
+    }
+
     public function orders()
     {
         return $this->hasMany(Order::class);
