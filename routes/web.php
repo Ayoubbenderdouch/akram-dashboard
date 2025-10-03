@@ -38,7 +38,16 @@ Route::get('/debug-storage', function () {
     ]);
 });
 
-// Images are now stored directly in public/uploads/products - no need for storage route
+// Fallback route for old /storage/ images (backwards compatibility)
+Route::get('/storage/{path}', function ($path) {
+    $file = storage_path('app/public/' . $path);
+
+    if (!file_exists($file)) {
+        abort(404);
+    }
+
+    return response()->file($file);
+})->where('path', '.*');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
