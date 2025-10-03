@@ -19,9 +19,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Ensure storage directory exists
-        if (!file_exists(storage_path('app/public/products'))) {
-            mkdir(storage_path('app/public/products'), 0755, true);
+        // Ensure public uploads directory exists
+        if (!file_exists(public_path('uploads/products'))) {
+            mkdir(public_path('uploads/products'), 0755, true);
         }
     }
 }

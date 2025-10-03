@@ -38,16 +38,7 @@ Route::get('/debug-storage', function () {
     ]);
 });
 
-// Fallback route for serving storage files if symlink doesn't work
-Route::get('/storage/{path}', function ($path) {
-    $file = storage_path('app/public/' . $path);
-
-    if (!file_exists($file)) {
-        abort(404, 'File not found: ' . $path);
-    }
-
-    return response()->file($file);
-})->where('path', '.*');
+// Images are now stored directly in public/uploads/products - no need for storage route
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
