@@ -33,7 +33,8 @@ class ProductManagementController extends Controller
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('products', 'public');
-            $validated['image_url'] = Storage::url($path);
+            // Store full path including storage prefix
+            $validated['image_url'] = '/storage/' . $path;
         }
 
         Product::create($validated);
@@ -68,7 +69,8 @@ class ProductManagementController extends Controller
             }
 
             $path = $request->file('image')->store('products', 'public');
-            $validated['image_url'] = Storage::url($path);
+            // Store full path including storage prefix
+            $validated['image_url'] = '/storage/' . $path;
         }
 
         $product->update($validated);

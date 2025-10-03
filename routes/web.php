@@ -16,6 +16,17 @@ Route::get('/', function () {
     return redirect()->route('dashboard');
 });
 
+// Fallback route for serving storage files if symlink doesn't work
+Route::get('/storage/{path}', function ($path) {
+    $file = storage_path('app/public/' . $path);
+
+    if (!file_exists($file)) {
+        abort(404);
+    }
+
+    return response()->file($file);
+})->where('path', '.*');
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
