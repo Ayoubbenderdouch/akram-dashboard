@@ -48,6 +48,11 @@
                         <span class="font-medium">Dashboard</span>
                     </a>
 
+                    <a href="{{ route('statistics') }}" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg {{ request()->routeIs('statistics') ? 'bg-white bg-opacity-20 text-white' : 'text-indigo-100 hover:bg-white hover:bg-opacity-10' }}">
+                        <i class="fas fa-chart-line w-5"></i>
+                        <span class="font-medium">Statistics</span>
+                    </a>
+
                     <a href="{{ route('users.index') }}" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg {{ request()->routeIs('users.*') ? 'bg-white bg-opacity-20 text-white' : 'text-indigo-100 hover:bg-white hover:bg-opacity-10' }}">
                         <i class="fas fa-users w-5"></i>
                         <span class="font-medium">Users</span>
