@@ -9,6 +9,16 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
+        // Admin User für Dashboard
+        \App\Models\User::create([
+            'name' => 'Admin',
+            'surname' => 'Akram',
+            'phone_number' => '0550000000',
+            'email' => 'admin@akram.dz',
+            'password' => bcrypt('Admin@2025'),
+        ]);
+
+        // Test User für API
         \App\Models\User::create([
             'name' => 'Test',
             'surname' => 'User',
