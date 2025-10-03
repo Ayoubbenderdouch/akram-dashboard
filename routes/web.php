@@ -16,12 +16,34 @@ Route::get('/', function () {
     return redirect()->route('dashboard');
 });
 
+// Debug route to check storage
+Route::get('/debug-storage', function () {
+    $products = \App\Models\Product::all();
+    $storageExists = file_exists(public_path('storage'));
+    $storageLinked = is_link(public_path('storage'));
+
+    return response()->json([
+        'public_storage_exists' => $storageExists,
+        'public_storage_is_link' => $storageLinked,
+        'storage_path' => storage_path('app/public'),
+        'public_path' => public_path('storage'),
+        'products' => $products->map(function($p) {
+            return [
+                'id' => $p->id,
+                'name' => $p->name,
+                'image_url' => $p->image_url,
+                'file_exists' => $p->image_url ? file_exists(storage_path('app/public/' . str_replace('/storage/', '', $p->image_url))) : false,
+            ];
+        }),
+    ]);
+});
+
 // Fallback route for serving storage files if symlink doesn't work
 Route::get('/storage/{path}', function ($path) {
     $file = storage_path('app/public/' . $path);
 
     if (!file_exists($file)) {
-        abort(404);
+        abort(404, 'File not found: ' . $path);
     }
 
     return response()->file($file);
