@@ -7,12 +7,14 @@ Use these commands in your Laravel Cloud project settings:
 ```bash
 composer install --no-dev --optimize-autoloader
 php artisan migrate --force
-php artisan db:seed --force
 php artisan storage:link
+php artisan db:seed --force
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 ```
+
+**Note**: The seeder now uses `firstOrCreate()` to prevent duplicate user errors on redeployment.
 
 ## Important Notes
 
